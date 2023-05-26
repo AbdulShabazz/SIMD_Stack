@@ -1,14 +1,73 @@
-#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+/**
+AUTHOR: 
+Seagat2011
+
+DESCRIPTION:
+A High_Priority_Queue has O(1) Sort-, Insert-, 
+Search-, and removal- runtime complexity.
+*/
 
 template<typename T, std::size_t N>
-class SIMD_Stack {
+class High_Priority_Queue {
 public:
-    SIMD_Stack() {
+    High_Priority_Queue() noexcept {
         for(auto& vec : vectors) {
             vec.push_back(1);
         }
     }
+
+    // Setters //
+    T Push(const auto& vec)
+    {
+        
+    }
+
+    T Push_Front(const auto& vec)
+    {
+        
+    }
+    T Push_Back(const auto& vec)
+    {
+        
+    }
     
+    bool Insert(const T& value)
+    {
+        const idx = (value < value_0000 ? 0 : 1) + ... + (value < value_N ? 0 : 1);
+        vectors[idx] = value;
+    }
+    
+    T Emplace(const )
+    {
+        
+    }
+
+    // Deleters //
+    bool Pop() const noexcept
+    {
+        
+    }
+    bool Pop_Back() const noexcept
+    {
+        
+    }
+    bool Pop_Front() const noexcept
+    {
+        
+    }
+    
+    bool Empty() const {
+        
+    }
+    
+    bool Clear() const {
+        
+    }
+    
+    // Getters //
     std::vector<T>& operator[](std::size_t i) {
         return vectors[i];
     }
@@ -17,9 +76,75 @@ public:
         return vectors[i];
     }
     
+    T Top() const
+    {
+        
+    }
+    
+    T Bottom() const
+    {
+        
+    }
+    
+    T Front() const
+    {
+        
+    }
+    
+    T Back() const
+    {
+        
+    }
+    
 private:
-    std::vector<std::vector<T>, N> vectors;
+    std::unordered_map<std::size_t, T> vector;
+    
+    void Sort()
+    {
+        
+    }
+    
 };
+
+int main ()
+{
+    return EXIT_SUCCESS;
+}
+
+/*
+/ *Q:Bard, provide a c++20 algorithm to implement a custom std::priority_queue without a third party library.  * /
+
+template <typename T, typename Compare = std::less<T>>
+class custom_priority_queue {
+    public:
+    custom_priority_queue() = default;
+    
+    void push(const T& value)
+    {
+        queue.push_back(value);
+        std::push_heap(queue,begin(), queue.end(), Compare());
+    }
+    
+    void pop(){
+        std::pop_heap(queue,begin(), queue.end(), Compare());
+        queue.pop_back();
+    }
+    
+    T top() const {
+        return queue.front();
+    }
+    
+    bool empty () {
+        return queue::empty();
+    }
+    
+    private:
+    std::vector<T> queue;
+}
+*/
+
+
+
 
 /*
 / *
