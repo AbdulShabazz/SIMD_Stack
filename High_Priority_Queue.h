@@ -10,105 +10,70 @@ A High_Priority_Queue has O(1) Sort-, Insert-,
 Search-, and removal- runtime complexity.
 */
 
-template<typename T, std::size_t N>
+template<typename T, typename Compare = std::less<T>>
 class High_Priority_Queue {
 public:
-    High_Priority_Queue() noexcept {
-        for(auto& vec : vectors) {
-            vec.push_back(1);
-        }
-    }
+	High_Priority_Queue(const std::size_t N = 0) noexcept : size(N){
+		while(N) {
+			vec.emplace(N, T{});
+			--N
+		}
+	}
 
-    // Setters //
-    T Push(const auto& vec)
-    {
-        
-    }
+	std::size_t Size() const noexcept {
+		return size;
+	}
 
-    T Push_Front(const auto& vec)
-    {
-        
-    }
-    T Push_Back(const auto& vec)
-    {
-        
-    }
-    
-    bool Insert(const T& value)
-    {
-        const idx = (value < value_0000 ? 0 : 1) + ... + (value < value_N ? 0 : 1);
-        vectors[idx] = value;
-    }
-    
-    T Emplace(const )
-    {
-        
-    }
+	// Setters //
+	T Push(const T& vec)
+	{
+		vec.emplace(size, vec);
+		++size;
+	}
 
-    // Deleters //
-    bool Pop() const noexcept
-    {
-        
-    }
-    bool Pop_Back() const noexcept
-    {
-        
-    }
-    bool Pop_Front() const noexcept
-    {
-        
-    }
-    
-    bool Empty() const {
-        
-    }
-    
-    bool Clear() const {
-        
-    }
-    
-    // Getters //
-    std::vector<T>& operator[](std::size_t i) {
-        return vectors[i];
-    }
-    
-    const std::vector<T>& operator[](std::size_t i) const {
-        return vectors[i];
-    }
-    
-    T Top() const
-    {
-        
-    }
-    
-    T Bottom() const
-    {
-        
-    }
-    
-    T Front() const
-    {
-        
-    }
-    
-    T Back() const
-    {
-        
-    }
-    
+	// Deleters //
+	void Pop()
+	{
+		vec[--size] = T{};
+	}
+	
+	bool Clear() {
+		size = 0;
+		return Empty();
+	}
+	
+	bool Empty() noexcept {
+		return (size == 0);
+	}
+	
+	// Getters //
+	T& operator[](std::size_t i) {
+		return vec[i];
+	}
+	
+	T& at(const std::size_t& i) noexcept
+	{
+		return vec[i];
+	}
+	
+	T& Top()
+	{
+		return vec[0];
+	}
+	
+	T& Bottom()
+	{
+		return vec[size-1];
+	}
+	
 private:
-    std::unordered_map<std::size_t, T> vector;
-    
-    void Sort()
-    {
-        
-    }
-    
+	std::size_t size = 0;
+	std::unordered_map<std::size_t, T> vec;
 };
 
 int main ()
 {
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
 /*
@@ -116,30 +81,30 @@ int main ()
 
 template <typename T, typename Compare = std::less<T>>
 class custom_priority_queue {
-    public:
-    custom_priority_queue() = default;
-    
-    void push(const T& value)
-    {
-        queue.push_back(value);
-        std::push_heap(queue,begin(), queue.end(), Compare());
-    }
-    
-    void pop(){
-        std::pop_heap(queue,begin(), queue.end(), Compare());
-        queue.pop_back();
-    }
-    
-    T top() const {
-        return queue.front();
-    }
-    
-    bool empty () {
-        return queue::empty();
-    }
-    
-    private:
-    std::vector<T> queue;
+	public:
+	custom_priority_queue() = default;
+	
+	void push(const T& value)
+	{
+		queue.push_back(value);
+		std::push_heap(queue,begin(), queue.end(), Compare());
+	}
+	
+	void pop(){
+		std::pop_heap(queue,begin(), queue.end(), Compare());
+		queue.pop_back();
+	}
+	
+	T top() const {
+		return queue.front();
+	}
+	
+	bool empty () {
+		return queue::empty();
+	}
+	
+	private:
+	std::vector<T> queue;
 }
 */
 
@@ -166,31 +131,31 @@ public:
   CopyOnWritePriorityQueue() {}
 
   void push(int value) {
-    if (reference_count == 1) {
-      queue_.push(value);
-    } else {
-      queue_ = queue_.copy();
-      queue_.push(value);
-    }
-    ++reference_count;
+	if (reference_count == 1) {
+	  queue_.push(value);
+	} else {
+	  queue_ = queue_.copy();
+	  queue_.push(value);
+	}
+	++reference_count;
   }
 
   int top() {
-    if (reference_count == 1) {
-      return queue_.top();
-    } else {
-      return queue_.copy().top();
-    }
+	if (reference_count == 1) {
+	  return queue_.top();
+	} else {
+	  return queue_.copy().top();
+	}
   }
 
   void pop() {
-    if (reference_count == 1) {
-      queue_.pop();
-    } else {
-      queue_ = queue_.copy();
-      queue_.pop();
-    }
-    --reference_count;
+	if (reference_count == 1) {
+	  queue_.pop();
+	} else {
+	  queue_ = queue_.copy();
+	  queue_.pop();
+	}
+	--reference_count;
   }
 
 private:
@@ -209,31 +174,31 @@ public:
   CopyOnWritePriorityQueue() {}
 
   void push(int value) {
-    if (reference_count == 1) {
-      queue_.push(value);
-    } else {
-      queue_ = queue_.copy();
-      queue_.push(value);
-    }
-    ++reference_count;
+	if (reference_count == 1) {
+	  queue_.push(value);
+	} else {
+	  queue_ = queue_.copy();
+	  queue_.push(value);
+	}
+	++reference_count;
   }
 
   int top() {
-    if (reference_count == 1) {
-      return queue_.top();
-    } else {
-      return queue_.copy().top();
-    }
+	if (reference_count == 1) {
+	  return queue_.top();
+	} else {
+	  return queue_.copy().top();
+	}
   }
 
   void pop() {
-    if (reference_count == 1) {
-      queue_.pop();
-    } else {
-      queue_ = queue_.copy();
-      queue_.pop();
-    }
-    --reference_count;
+	if (reference_count == 1) {
+	  queue_.pop();
+	} else {
+	  queue_ = queue_.copy();
+	  queue_.pop();
+	}
+	--reference_count;
   }
 
 private:
