@@ -13,63 +13,70 @@ Search-, and removal- runtime complexity.
 template<typename T, typename Compare = std::less<T>>
 class High_Priority_Queue {
 public:
-	High_Priority_Queue(const std::size_t N = 0) noexcept : size(N){
-		while(N) {
-			vec.emplace(N, T{});
-			--N
+	High_Priority_Queue() = default;
+
+	// Setters //
+	void Push(const T& value) {
+		if (value > vec.size())
+			vec.resize(value);
+
+		for (T i = 0; i < value; ++i) {
+			vec[i] += 1;
 		}
 	}
 
-	std::size_t Size() const noexcept {
-		return size;
-	}
-
-	// Setters //
-	T Push(const T& vec)
-	{
-		vec.emplace(size, vec);
-		++size;
-	}
-
 	// Deleters //
-	void Pop()
-	{
-		vec[--size] = T{};
+	void Pop() {
+		if (!vec.empty()) {
+			T value = vec.back();
+			if (value < vec.size()) {
+				for (int64_t i = value - 1; i > -1; --i) {
+					vec[i] -= 1;
+				}
+			}
+			vec.pop_back();
+		}
 	}
-	
-	bool Clear() {
-		size = 0;
-		return Empty();
+
+	void Clear() {
+		vec.clear();
 	}
-	
+
 	bool Empty() noexcept {
-		return (size == 0);
+		return vec.empty();
 	}
-	
-	// Getters //
-	T& operator[](std::size_t i) {
-		return vec[i];
+
+	T Top() {
+		T value = 0;
+		for (const T& i : vec) {
+			value += i;
+		}
+		return value;
 	}
-	
-	T& at(const std::size_t& i) noexcept
-	{
-		return vec[i];
+
+	T Bottom() {
+		if (vec.empty())
+			return T{};
+		
+		T value = 0;
+		const T idy = vec[0];
+		for (const T& idx: vec) {
+			if(idx != idy)
+				break;
+			else
+				value += 1;
+		}
+		return value;
 	}
-	
-	T& Top()
-	{
-		return vec[0];
+
+	std::size_t Size() const noexcept {
+		return vec.size();
 	}
-	
-	T& Bottom()
-	{
-		return vec[size-1];
-	}
-	
+
 private:
-	std::size_t size = 0;
-	std::unordered_map<std::size_t, T> vec;
+	std::vector<T> vec;
 };
+
 
 int main ()
 {
