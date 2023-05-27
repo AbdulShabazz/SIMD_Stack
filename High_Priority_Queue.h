@@ -16,7 +16,7 @@ public:
 	High_Priority_Queue() = default;
 
 	// Setters //
-	void Push(const T& value) {
+	void Push(T const& value) {
 		if (value > vec.size())
 			vec.resize(value);
 
@@ -48,7 +48,7 @@ public:
 
 	T Top() {
 		T value = 0;
-		for (const T& i : vec) {
+		for (T const& i : vec) {
 			value += i;
 		}
 		return value;
@@ -59,8 +59,8 @@ public:
 			return T{};
 		
 		T value = 0;
-		const T idy = vec[0];
-		for (const T& idx: vec) {
+		T const idy = vec[0];
+		for (T const& idx: vec) {
 			if(idx != idy)
 				break;
 			else
